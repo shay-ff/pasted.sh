@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff, Dices as Dice } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/cards";
+import { Card } from "../components/ui/cards";
 import { Checkbox } from "../components/ui/checkbox";
 import { Input } from "../components/ui/input";
 import { Select, SelectItem } from "../components/ui/select";

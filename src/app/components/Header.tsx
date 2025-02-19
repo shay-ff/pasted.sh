@@ -1,8 +1,7 @@
 'use client';
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 export default function Header() {
-    const router = useRouter();
     return (
         <div className="flex justify-between items-center px-6 py-4 bg-gray-800 text-white shadow-md sticky top-0 z-50">
             <Link href = "/">

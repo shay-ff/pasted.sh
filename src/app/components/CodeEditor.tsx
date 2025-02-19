@@ -8,7 +8,7 @@ export default function CodeEditor() {
   const [language, setLanguage] = useState("");
   useEffect(() => {
     setLanguage(language);
-  }, []);
+  });
   const [defaultValue, setDefaultValue] = useState("");
   const handleEditorChange = (value: string | undefined) => {
     if (value !== undefined) {
