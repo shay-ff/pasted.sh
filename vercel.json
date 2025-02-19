@@ -1,0 +1,10 @@
+{
+    "version": 2,
+    "build": {
+      "command": "next build"
+    },
+    "routes": [
+      { "src": "/(.*)", "dest": "/src/app/$1" }
+    ]
+  }
+  
