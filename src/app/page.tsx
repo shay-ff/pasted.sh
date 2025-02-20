@@ -7,19 +7,19 @@ import { LanguageProvider } from "./middleware/LanguageContext";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#090909] text-white">
-      <Header />
-      <div className="flex flex-col lg:flex-row flex-1 p-6 gap-6">
-        <div className="flex-1 min-h-[70vh]">
-          <CodeEditor />
-        </div>
+    <LanguageProvider> 
+      <div className="flex flex-col min-h-screen bg-[#090909] text-white">
+        <Header />
+        <div className="flex flex-col lg:flex-row flex-1 p-6 gap-6">
+          <div className="flex-1 min-h-[70vh]">
+            <CodeEditor />  {/* Now inside LanguageProvider */}
+          </div>
 
-        <div className="m-3 border-white border-2 w-80">
-          <LanguageProvider>
+          <div className="m-3 border-white border-2 w-80">
             <SnippetForm />
-          </LanguageProvider>
+          </div>
         </div>
       </div>
-    </div>
+    </LanguageProvider>
   );
 }

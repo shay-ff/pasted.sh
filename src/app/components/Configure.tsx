@@ -19,8 +19,6 @@ export default function SnippetForm() {
     const genPass = () => {
         setPassword(nanoid(9));
     };
-    console.log(language);
-
     return (
     <Card className="max-w-md bg-[#141414] border-white text-white rounded-lg">
         <div className="space-y-4">
