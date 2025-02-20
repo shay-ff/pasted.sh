@@ -2,7 +2,6 @@
 
 import * as monaco from 'monaco-editor';
 
-// Language Configuration
 export const languageConfiguration: monaco.languages.LanguageConfiguration = {
   comments: {
     lineComment: '//',
