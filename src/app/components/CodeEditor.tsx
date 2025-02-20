@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
+import { useLanguage } from "../middleware/LanguageContext";
 
 export default function CodeEditor() {
-  const [language, setLanguage] = useState("javascript"); // Default language
+  const languageContext = useLanguage(); // Default language
+  const language = languageContext ? languageContext.language : "javascript"; // Fallback to a default language if undefined
   const [code, setCode] = useState("// Start coding here...");
 
   const handleEditorChange = (value: string | undefined) => {
