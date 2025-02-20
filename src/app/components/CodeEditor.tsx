@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 
 import { useLanguage } from "../middleware/LanguageContext";
 import { languageConfiguration, monarchLanguage } from "./customLanguage";
-import * as monaco from 'monaco-editor';
 
 const Editor = dynamic(() => import("@monaco-editor/react"), {ssr: false,
 });
