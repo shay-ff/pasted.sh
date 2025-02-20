@@ -3,6 +3,7 @@
 import Header from "./components/Header";
 import SnippetForm from "./components/Configure";
 import CodeEditor from "./components/CodeEditor";
+import { LanguageProvider } from "./middleware/LanguageContext";
 
 export default function Home() {
   return (
@@ -14,7 +15,9 @@ export default function Home() {
         </div>
 
         <div className="m-3 border-white border-2 w-80">
-          <SnippetForm />
+          <LanguageProvider>
+            <SnippetForm />
+          </LanguageProvider>
         </div>
       </div>
     </div>

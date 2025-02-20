@@ -7,20 +7,27 @@ import { Input } from "../components/ui/input";
 import { Select, SelectItem } from "../components/ui/select";
 import { Textarea } from "../components/ui/textarea";
 import { nanoid } from "nanoid";
+import { useLanguage } from "../middleware/LanguageContext";
 
 export default function SnippetForm() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [password, setPassword] = useState("");
     const [expTime, setExpTime] = useState("never");
-    const [language, setLanguage] = useState("plaintext");
+    const languageContext = useLanguage();
+    const language = languageContext?.language ?? "plaintext";
+    const setLanguage = languageContext?.setLanguage ?? (() => {});
     const genPass = () => {
         setPassword(nanoid(9));
     };
+    console.log(language);
 
     return (
     <Card className="max-w-md bg-[#141414] border-white text-white rounded-lg">
         <div className="space-y-4">
-            <Select className="bg-gray-800 text-white border-gray-700">
+            <Select className="bg-gray-800 text-white border-gray-700"
+                value={language}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value)}
+            >
                 <SelectItem value="plaintext">Plain Text</SelectItem>
                 <SelectItem value="javascript">JavaScript</SelectItem>
                 <SelectItem value="python">Python</SelectItem>
