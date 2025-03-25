@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 // Define TypeScript Interface for Snippet
-type Preferences = Record<string, any>;
+type Preferences = Record<string, unknown>;
 
 interface ISnippet extends Document {
   code: string;

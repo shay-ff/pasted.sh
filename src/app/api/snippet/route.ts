@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/db/db";
 import Snippet from "@/app/lib/db/model/snippet";
-import exp from "constants";
 import { NextRequest } from "next/server";
 
 
