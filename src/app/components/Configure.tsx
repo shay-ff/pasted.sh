@@ -16,7 +16,6 @@ export default function SnippetForm() {
   const [expTime, setExpTime] = useState("never");
   const languageContext = useLanguage();
   const codeContext = useCode();
-  const [snippetId, setSnippetId] = useState(nanoid(14));
   const language = languageContext?.language ?? "plaintext";
   const setLanguage = languageContext?.setLanguage ?? (() => {
     console.error("Language context not found");
