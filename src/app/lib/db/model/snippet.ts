@@ -1,9 +1,10 @@
 import mongoose, { Schema, Document } from "mongoose";
-
+import { nanoid } from "nanoid";
 // Define TypeScript Interface for Snippet
 type Preferences = Record<string, unknown>;
 
 interface ISnippet extends Document {
+  // snippetId: string;
   code: string;
   language: string;
   title: string | null;
@@ -16,12 +17,13 @@ interface ISnippet extends Document {
 // Define Mongoose Schema
 const SnippetSchema = new Schema<ISnippet>(
   {
+    _id: { type: String, default: () => nanoid(14) },
     code: { type: String, required: true },
-    language: { type: String, required: true },
-    title: { type: String, required: true },
-    description: { type: String },
-    password: { type: String },
-    expTime: { type: Number }, // Store time in seconds
+    language: { type: String, required: false },
+    title: { type: String, required: false },
+    description: { type: String, required: false },
+    password: { type: String, required: false },
+    expTime: { type: Number, required: false }, 
     preferences: { type: Schema.Types.Mixed },
   },
   { timestamps: true } // Auto-add createdAt and updatedAt

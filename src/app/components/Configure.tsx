@@ -16,7 +16,7 @@ export default function SnippetForm() {
   const [expTime, setExpTime] = useState("never");
   const languageContext = useLanguage();
   const codeContext = useCode();
-
+  const [snippetId, setSnippetId] = useState(nanoid(14));
   const language = languageContext?.language ?? "plaintext";
   const setLanguage = languageContext?.setLanguage ?? (() => {
     console.error("Language context not found");
@@ -24,6 +24,10 @@ export default function SnippetForm() {
   const genPass = () => {
     setPassword(nanoid(9));
   };
+  const genId = () =>{
+    const newId = nanoid(14);
+    return newId;
+  }
   return (
     <Card className="max-w-md bg-[#141414] border-white text-white rounded-lg">
       <div className="space-y-4">
@@ -124,6 +128,7 @@ export default function SnippetForm() {
           onClick={async () => {
             console.log("button clicked!");
             const snippetData = {
+              snippetId: genId(),
               code: codeContext?.code ?? "// User's code",
               language,
               title: (document.querySelector('input[placeholder="Title (Optional)"]') as HTMLInputElement)?.value ?? "",
