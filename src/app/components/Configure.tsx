@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { Eye, EyeOff, Dices as Dice } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 import { Card } from "@/app/components/ui/cards";
@@ -15,7 +15,7 @@ export default function SnippetForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [expTime, setExpTime] = useState("never");
-  const [snippet, setSnippet] = useState("");
+  const [, setSnippet] = useState("");
   const [snippetLink, setSnippetLink] = useState<string>("");
   const [showLinkPopup, setShowLinkPopup] = useState<boolean>(false);
 
