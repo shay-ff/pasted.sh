@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     // console.log(connectToDatabase);
 
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get("id");
+    const id = searchParams.get("_id");
 
     if (id) {
       console.log(`Fetching snippet with id: ${id}`);
