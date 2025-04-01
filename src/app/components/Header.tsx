@@ -24,15 +24,6 @@ export default function Header() {
           </button>
         </Link>
       </div>
-
-      <div className="flex space-x-4">
-        <button className="px-4 py-2 text-sm font-medium font-mono bg-[#0d1117] border border-[#30363d] rounded-md hover:bg-[#1f6feb] hover:text-white">
-          Login
-        </button>
-        <button className="px-4 py-2 text-sm font-medium font-mono bg-[#0d1117] border border-[#30363d] rounded-md hover:bg-[#f78166] hover:text-white">
-          Register
-        </button>
-      </div>
     </div>
   );
 }

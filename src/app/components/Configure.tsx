@@ -81,6 +81,7 @@ export default function SnippetForm() {
       console.log("Snippet ID:", data.snippet._id);
       const savedSnippetId = data.snippet._id;
       const newSnippetLink = `${window.location.origin}/api/snippet?_id=${savedSnippetId}`;
+      console.log("Snippet Link:", newSnippetLink);
 
       // Display the popup with the snippet link
       setSnippetLink(newSnippetLink);
