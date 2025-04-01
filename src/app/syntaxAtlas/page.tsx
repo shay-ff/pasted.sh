@@ -14,7 +14,7 @@ interface SnippetType {
 export default async function SyntaxAtlas() {
   // Connect to the database and fetch snippets
   await connectToDatabase();
-  const snippets: SnippetType[] = (await Snippet.find({}).sort({ createdAt: -1 }).lean()).map((snippet: any) => ({
+  const snippets: SnippetType[] = (await Snippet.find({}).sort({ createdAt: -1 }).lean() as unknown as SnippetType[]).map((snippet) => ({
     _id: snippet._id.toString(),
     title: snippet.title || undefined,
     language: snippet.language,
