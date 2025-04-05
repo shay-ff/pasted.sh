@@ -1,4 +1,3 @@
-// app/page.tsx (Server Component)
 import Header from '../components/Header';
 import connectToDatabase from '../lib/db/db';
 import Snippet from '../lib/db/model/snippet';
@@ -12,7 +11,6 @@ interface SnippetType {
 }
 
 export default async function SyntaxAtlas() {
-  // Connect to the database and fetch snippets
   await connectToDatabase();
   const snippets: SnippetType[] = (await Snippet.find({}).sort({ createdAt: -1 }).lean() as unknown as SnippetType[]).map((snippet) => ({
     _id: snippet._id.toString(),
