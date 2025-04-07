@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import type * as monacoEditor from "monaco-editor";
 
 import { useLanguage } from "@/app/middleware/LanguageContext";
 import { languageConfiguration, monarchLanguage } from "@/app/components/Editor/customLanguage";
@@ -24,7 +25,10 @@ export default function CodeEditor() {
     }
   };
 
-  const handleEditorDidMount = (_editor: any, monaco: any) => {
+  const handleEditorDidMount = (
+    _editor: monacoEditor.editor.IStandaloneCodeEditor,
+    monaco: typeof monacoEditor
+  ) => {
     monaco.languages.setLanguageConfiguration(language, languageConfiguration);
     monaco.languages.setMonarchTokensProvider(language, monarchLanguage);
 
