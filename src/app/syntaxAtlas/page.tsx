@@ -12,7 +12,13 @@ interface SnippetType {
 
 export default async function SyntaxAtlas() {
   await connectToDatabase();
-  const snippets: SnippetType[] = (await Snippet.find({}).sort({ createdAt: -1 }).lean() as unknown as SnippetType[]).map((snippet) => ({
+
+  // Query only the required fields to ensure serializability.
+  const snippetsRaw = await Snippet.find({}, '_id title language code')
+    .sort({ createdAt: -1 })
+    .lean();
+
+  const snippets: SnippetType[] = snippetsRaw.map((snippet) => ({
     _id: snippet._id.toString(),
     title: snippet.title || undefined,
     language: snippet.language,
@@ -24,7 +30,6 @@ export default async function SyntaxAtlas() {
       <Header />
       <div className="p-4">
         <h1 className="text-2xl font-bold mb-4">All Snippets</h1>
-        {/* Pass the fetched snippets to the client component */}
         <SnippetList snippets={snippets} />
       </div>
     </div>
