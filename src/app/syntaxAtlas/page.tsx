@@ -1,37 +1,48 @@
-import Header from '../components/Header';
-import connectToDatabase from '../lib/db/db';
-import Snippet from '../lib/db/model/snippet';
-import SnippetList from '../components/snippetList';
+// "use client";
 
-interface SnippetType {
-  _id: string;
-  title?: string;
-  language: string;
-  code: string;
-}
+// import Header from '@/app/components/Header';
+// import connectToDatabase from '@/app/lib/db/db';
+// import Snippet from "@/app/lib/db/model/snippet";
+// import SnippetList from '@/app/components/snippetList';
 
-export default async function SyntaxAtlas() {
-  await connectToDatabase();
+// interface SnippetType {
+//   _id: string;
+//   title?: string;
+//   language: string;
+//   code: string;
+// }
 
-  // Query only the required fields to ensure serializability.
-  const snippetsRaw = await Snippet.find({}, '_id title language code')
-    .sort({ createdAt: -1 })
-    .lean();
+// export default async function SyntaxAtlas() {
+//   await connectToDatabase();
 
-  const snippets: SnippetType[] = snippetsRaw.map((snippet) => ({
-    _id: snippet._id.toString(),
-    title: snippet.title || undefined,
-    language: snippet.language,
-    code: snippet.code,
-  }));
+//   // Fetch and sanitize data
+//   const snippetsRaw = await Snippet.find({}, '_id title language code')
+//     .sort({ createdAt: -1 })
+//     .lean() as unknown as Array<{ _id: any; title?: string; language: string; code: string }>;
 
+//   const snippets: SnippetType[] = snippetsRaw.map((snippet) => ({
+//     _id: snippet._id.toString(),
+//     title: snippet.title || undefined,
+//     language: snippet.language,
+//     code: snippet.code,
+//   }));
+
+//   return (
+//     <div>
+//       <Header />
+//       <div className="p-4">
+//         <h1 className="text-2xl font-bold mb-4">All Snippets</h1>
+//         <SnippetList snippets={snippets} />
+//       </div>
+//     </div>
+//   );
+// }
+export default function SyntaxAtlas() {
   return (
-    <div>
-      <Header />
-      <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">All Snippets</h1>
-        <SnippetList snippets={snippets} />
-      </div>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <h1 className="text-2xl font-bold mb-4">Syntax Atlas</h1>
+      <p className="text-lg">Welcome to the Syntax Atlas page!</p>
+      <p className="text-lg">Explore code snippets and more.</p>
     </div>
   );
 }
