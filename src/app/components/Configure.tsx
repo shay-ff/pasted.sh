@@ -13,7 +13,7 @@ import SaveSnippetPopup from "@/app/components/saveSnippetPopup";
 
 export default function SnippetForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("null");
   const [expTime, setExpTime] = useState("never");
   const [, setSnippet] = useState("");
   const [snippetLink, setSnippetLink] = useState<string>("");
@@ -80,7 +80,7 @@ export default function SnippetForm() {
       console.log("Snippet saved:", data);
       console.log("Snippet ID:", data.snippet._id);
       const savedSnippetId = data.snippet._id;
-      const newSnippetLink = `${window.location.origin}/api/snippet?_id=${savedSnippetId}`;
+      const newSnippetLink = `${window.location.origin}/snippet/${savedSnippetId}`;
       console.log("Snippet Link:", newSnippetLink);
 
       // Display the popup with the snippet link
@@ -178,9 +178,7 @@ export default function SnippetForm() {
 
         <div className="flex flex-col pl-1 space-y-1">
           <Checkbox label="Indexable" className="text-[#c9d1d9]" defaultChecked />
-          <Checkbox label="Comments" className="text-[#c9d1d9]" defaultChecked />
           <Checkbox label="User Only" className="text-[#c9d1d9]" />
-          <Checkbox label="Encrypt" className="text-[#c9d1d9]" />
         </div>
 
         <Button
