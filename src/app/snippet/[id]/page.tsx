@@ -12,28 +12,40 @@ type Snippet = {
 };
 
 async function getSnippet(id: string): Promise<Snippet | null> {
+  if (!process.env.SITE_URL) {
+    console.error("SITE_URL environment variable is not defined.");
+    return null; // or throw an error
+  }
+
   const res = await fetch(`${process.env.SITE_URL}/api/snippet/${id}`, {
     cache: "no-store",
   });
-  if (!res.ok) return null;
-  const data = await res.json();
 
-  // Check if expired
-  if (data.expTime !== null && data.createdAt) {
-    const created = new Date(data.createdAt).getTime();
-    const expiresAt = created + data.expTime * 1000;
-    if (Date.now() > expiresAt) return null;
+  if (!res.ok) {
+    console.error(`Failed to fetch snippet with ID ${id}. Status: ${res.status}`);
+    return null;
   }
 
-  return data;
+  try {
+    const data = await res.json();
+
+    // Check if expired
+    if (data.expTime !== null && data.createdAt) {
+      const created = new Date(data.createdAt).getTime();
+      const expiresAt = created + data.expTime * 1000;
+      if (Date.now() > expiresAt) return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return null;
+  }
 }
 
-export default async function SnippetPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const snippet = await getSnippet(params.id);
+export default async function SnippetPage({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const snippet = await getSnippet(id);
 
   if (!snippet) return notFound();
 

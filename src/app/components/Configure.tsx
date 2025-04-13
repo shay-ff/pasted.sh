@@ -13,7 +13,7 @@ import SaveSnippetPopup from "@/app/components/saveSnippetPopup";
 
 export default function SnippetForm() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [password, setPassword] = useState("null");
+  const [password, setPassword] = useState("");
   const [expTime, setExpTime] = useState("never");
   const [, setSnippet] = useState("");
   const [snippetLink, setSnippetLink] = useState<string>("");
@@ -83,7 +83,6 @@ export default function SnippetForm() {
       const newSnippetLink = `${window.location.origin}/snippet/${savedSnippetId}`;
       console.log("Snippet Link:", newSnippetLink);
 
-      // Display the popup with the snippet link
       setSnippetLink(newSnippetLink);
       setShowLinkPopup(true);
     } catch (error) {

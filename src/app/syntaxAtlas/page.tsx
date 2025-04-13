@@ -1,11 +1,9 @@
-// app/syntax-atlas/page.tsx
 import Header from '@/app/components/Header';
 import { Card } from '@/app/components/ui/cards';
 import connectToDatabase from '@/app/lib/db/db';
 import SnippetModel from '@/app/lib/db/model/snippet';
 import Link from 'next/link';
 
-// Fetch snippets (no formatting on the server)
 async function fetchSnippets() {
   await connectToDatabase();
   const snippets = await SnippetModel.find({ password: '' }).sort({ createdAt: -1 }).lean(); // Filter for snippets where password is an empty string
@@ -19,7 +17,6 @@ async function fetchSnippets() {
   }));
 }
 
-// Optional: Extracted for cleaner code
 function SnippetCard({ snippet }: { snippet: any }) {
   const trimmedPreview = snippet.preview.trim(); // Trim the preview
   return (
