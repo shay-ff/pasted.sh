@@ -32,4 +32,4 @@ const SnippetSchema = new Schema<ISnippet>(
 // Prevent model overwrite in Next.js
 const Snippet = mongoose.models.Snippet || mongoose.model<ISnippet>("Snippet", SnippetSchema);
 
-export default Snippet;
+export { Snippet as default, type ISnippet };

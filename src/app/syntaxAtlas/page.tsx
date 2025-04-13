@@ -1,24 +1,31 @@
 import Header from '@/app/components/Header';
 import { Card } from '@/app/components/ui/cards';
 import connectToDatabase from '@/app/lib/db/db';
-import SnippetModel from '@/app/lib/db/model/snippet';
+import SnippetModel, { ISnippet} from '@/app/lib/db/model/snippet'; // Import the interface
 import Link from 'next/link';
 
 async function fetchSnippets() {
   await connectToDatabase();
-  const snippets = await SnippetModel.find({ password: '' }).sort({ createdAt: -1 }).lean(); // Filter for snippets where password is an empty string
-  return snippets.map((snippet: any) => ({
-    id: snippet._id.toString(),
+  const snippets = await SnippetModel.find({ password: '' }).sort({ createdAt: -1 }).lean();
+  return snippets.map((snippet: ISnippet) => ({
+    id: snippet._id,
     title: snippet.title || 'Untitled',
     language: snippet.language || 'Unknown',
-    createdAt: snippet.createdAt ? snippet.createdAt.toString() : null, // Send raw date
+    createdAt: snippet.createdAt ? snippet.createdAt.toISOString() : null,
     expTime: snippet.expTime === null ? 'Never' : `${snippet.expTime} seconds`,
-    preview: snippet.code.split('\n').slice(0, 3).join('\n'), // Short preview
+    preview: snippet.code.split('\n').slice(0, 3).join('\n'),
   }));
 }
 
-function SnippetCard({ snippet }: { snippet: any }) {
-  const trimmedPreview = snippet.preview.trim(); // Trim the preview
+function SnippetCard({ snippet }: { snippet: {
+  id: string;
+  title: string;
+  language: string;
+  createdAt: string | null;
+  expTime: string;
+  preview: string;
+}}) {
+  const trimmedPreview = snippet.preview.trim();
   return (
     <Link
       href={`/snippet/${snippet.id}`}
