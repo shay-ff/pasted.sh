@@ -1,15 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/db/db";
 import Snippet from "@/app/lib/db/model/snippet";
 
-export function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-   connectToDatabase();
-  const id = params.id;
+export async function GET(request: NextRequest ) {
   try {
-    const snippet =  Snippet.findById(id);
+    await connectToDatabase();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    const snippet = await Snippet.findById(id);
     if (!snippet) {
       return NextResponse.json({ error: "Snippet not found" }, { status: 404 });
     }
