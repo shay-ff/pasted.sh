@@ -3,8 +3,8 @@ import { connectToDatabase } from "@/app/lib/db/db";
 import Snippet from "@/app/lib/db/model/snippet";
 
 export async function GET(
-  request: NextRequest, 
-  context: any
+  request: NextRequest,
+  context: { params: Record<string, string> } 
 ) {
   await connectToDatabase();
   const { id } = context.params;
