@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/db/db";
 import Snippet from "@/app/lib/db/model/snippet";
 
-export async function GET(
+export function GET(
   request: Request,
-  { params } : { params: Promise<{id : string}> }
+  { params }: { params: { id: string } }
 ) {
-  await connectToDatabase();
-  const id = (await params).id;
+   connectToDatabase();
+  const id = params.id;
   try {
-    const snippet = await Snippet.findById(id);
+    const snippet =  Snippet.findById(id);
     if (!snippet) {
       return NextResponse.json({ error: "Snippet not found" }, { status: 404 });
     }
