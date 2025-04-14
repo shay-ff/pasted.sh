@@ -67,9 +67,7 @@ function SnippetCard({ snippet }: { snippet: {
 }
 
 export default async function SyntaxAtlas() {
-
   const snippets = await fetchSnippets();
-
   // console.log("in printing function", snippets);
   return (
     <div>
