@@ -2,11 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/db/db";
 import Snippet from "@/app/lib/db/model/snippet";
 
-type tParams = { id: string };
-
 export async function GET(
   request: NextRequest, 
-  context: { params: tParams }
+  context: any
 ) {
   await connectToDatabase();
   const { id } = context.params;
