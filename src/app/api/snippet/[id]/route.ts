@@ -3,11 +3,11 @@ import { connectToDatabase } from "@/app/lib/db/db";
 import Snippet from "@/app/lib/db/model/snippet";
 
 export async function GET(
-  request: NextRequest,
-  context: { params: Record<string, string> } 
+  request: Request,
+  { params } : { params: Promise<{id : string}> }
 ) {
   await connectToDatabase();
-  const { id } = context.params;
+  const id = (await params).id;
   try {
     const snippet = await Snippet.findById(id);
     if (!snippet) {
