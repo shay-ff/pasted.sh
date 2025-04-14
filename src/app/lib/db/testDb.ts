@@ -6,5 +6,5 @@ import Snippet from "./model/snippet";
 (async () => {
   await connectToDatabase();
   const snippets = await Snippet.find();
-  console.log("Snippets:", snippets);
+  // console.log("Snippets:", snippets);
 })();

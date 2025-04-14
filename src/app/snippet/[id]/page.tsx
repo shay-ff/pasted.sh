@@ -44,7 +44,7 @@ async function getSnippet(id: string): Promise<Snippet | null> {
 }
 
 export default async function SnippetPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+  const { id } = await params;
   const snippet = await getSnippet(id);
 
   if (!snippet) return notFound();

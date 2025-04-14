@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get("_id");
 
     if (id) {
-      console.log(`Fetching snippet with id: ${id}`);
+      // console.log(`Fetching snippet with id: ${id}`);
       const snippet = await Snippet.findById(id);
 
       if (!snippet) {
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     // console.log(connectToDatabase);
     await connectToDatabase();
     const body = await request.json();
-    console.log("Received Data:", body);  
+    // console.log("Received Data:", body);  
     
     if (typeof body.expTime === 'string' && body.expTime.toLowerCase() === 'never') {
       body.expTime = null;

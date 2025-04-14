@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/db/db";
 import Snippet from "@/app/lib/db/model/snippet";
 
-// GET /api/snippet/:id
-export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, context: { params: { id: string } }) {
   await connectToDatabase();
-  const { id } = params;
+  const { id } = await context.params;
+
   try {
     const snippet = await Snippet.findById(id);
     if (!snippet) {

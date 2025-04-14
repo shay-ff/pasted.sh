@@ -96,7 +96,7 @@ export default function SnippetViewer({ snippet }: { snippet: Snippet }) {
             <p className="font-semibold text-white">Created</p>
             <p>
               {snippet.createdAt
-                ? new Date(snippet.createdAt).toLocaleString()
+                ? new Date(snippet.createdAt).toISOString().replace("T", " ").slice(0, 19)
                 : "Unknown"}
             </p>
           </div>

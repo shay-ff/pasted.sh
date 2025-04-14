@@ -63,7 +63,7 @@ export default function SnippetForm() {
       },
     };
     setSnippet(JSON.stringify(snippetData));
-    console.log("Snippet Data:", snippetData);
+    // console.log("Snippet Data:", snippetData);
 
     try {
       const response = await fetch("/api/snippet", {
@@ -77,11 +77,11 @@ export default function SnippetForm() {
       }
 
       const data = await response.json();
-      console.log("Snippet saved:", data);
-      console.log("Snippet ID:", data.snippet._id);
+      // console.log("Snippet saved:", data);
+      // console.log("Snippet ID:", data.snippet._id);
       const savedSnippetId = data.snippet._id;
       const newSnippetLink = `${window.location.origin}/snippet/${savedSnippetId}`;
-      console.log("Snippet Link:", newSnippetLink);
+      // console.log("Snippet Link:", newSnippetLink);
 
       setSnippetLink(newSnippetLink);
       setShowLinkPopup(true);
