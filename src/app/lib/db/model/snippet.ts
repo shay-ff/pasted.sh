@@ -1,16 +1,19 @@
-import mongoose, { Schema, Document } from "mongoose";
+//app/lib/db/model/snippet.ts
+import mongoose, { Schema } from "mongoose";
 import { nanoid } from "nanoid";
 // Define TypeScript Interface for Snippet
 type Preferences = Record<string, unknown>;
 
-interface ISnippet extends Document {
+interface ISnippet {
   // snippetId: string;
+  _id: string;
   code: string;
   language: string;
-  title: string | null;
+  title?: string | null;
   description?: string | null;
   password?: string | null  ;
-  expTime?: number; // Store as seconds (e.g., 86400 for 24h)
+  createdAt?: Date | null;
+  expTime?: number | null; // Store as seconds (e.g., 86400 for 24h)
   preferences?: Preferences;
 }
 

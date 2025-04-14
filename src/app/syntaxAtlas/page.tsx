@@ -1,20 +1,31 @@
+//app/syntaxAtlas/page.tsx
 import Header from '@/app/components/Header';
 import { Card } from '@/app/components/ui/cards';
 import connectToDatabase from '@/app/lib/db/db';
-import SnippetModel, { ISnippet} from '@/app/lib/db/model/snippet'; // Import the interface
+import SnippetModel, {ISnippet} from '@/app/lib/db/model/snippet'; // Import the interface
 import Link from 'next/link';
 
 async function fetchSnippets() {
   await connectToDatabase();
-  const snippets = await SnippetModel.find({ password: '' }).sort({ createdAt: -1 }).lean();
-  return snippets.map((snippet: ISnippet) => ({
-    id: snippet._id,
-    title: snippet.title || 'Untitled',
-    language: snippet.language || 'Unknown',
-    createdAt: snippet.createdAt ? snippet.createdAt.toISOString() : null,
-    expTime: snippet.expTime === null ? 'Never' : `${snippet.expTime} seconds`,
-    preview: snippet.code.split('\n').slice(0, 3).join('\n'),
-  }));
+  // Specify that the query returns an array of ISnippet
+  const snippets = await SnippetModel.find({ password: '' })
+    .sort({ createdAt: -1 })
+    .lean<ISnippet[]>();
+
+  // console.log("snippets just so nikhil can agree", snippets);
+  const snippetData = snippets.map((snippet: ISnippet) => {  
+    return ({
+      id: snippet._id,
+      code: snippet.code,
+      title: snippet.title || 'Untitled',
+      language: snippet.language || 'Unknown',
+      createdAt: snippet.createdAt ? snippet.createdAt.toISOString() : null,
+      expTime: snippet.expTime === null ? 'Never' : `${snippet.expTime} seconds`,
+      preview: snippet.code.split('\n').slice(0, 3).join('\n'),
+    });
+  });
+
+  return snippetData;
 }
 
 function SnippetCard({ snippet }: { snippet: {
@@ -56,8 +67,10 @@ function SnippetCard({ snippet }: { snippet: {
 }
 
 export default async function SyntaxAtlas() {
+
   const snippets = await fetchSnippets();
 
+  // console.log("in printing function", snippets);
   return (
     <div>
       <Header />

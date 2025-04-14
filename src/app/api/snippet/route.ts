@@ -14,34 +14,21 @@ const timeMap: Record<string, number | null> = {
   never: null,
 };
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest ) {
+  // console.log("Fetching snippet with ID:", request.url);
+
   try {
-    await connectToDatabase();
-    // console.log(connectToDatabase);
-
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get("_id");
-
-    if (id) {
-      // console.log(`Fetching snippet with id: ${id}`);
-      const snippet = await Snippet.findById(id);
-
-      if (!snippet) {
-        return NextResponse.json({ error: "Snippet not found" }, { status: 404 });
-      }
-
-      // console.log("Snippet found:", snippet);
-      return NextResponse.json(snippet);
-    } else {
-      // console.log("Fetching all snippets...");
-      const snippets = await Snippet.find().sort({ createdAt: -1 });
-
-      // console.log("Snippets found:", snippets);
-      return NextResponse.json(snippets);
+    const id = searchParams.get("id");
+    await connectToDatabase();
+    const snippet = await Snippet.findById(id);
+    if (!snippet) {
+      return NextResponse.json({ error: "Snippet not found" }, { status: 404 });
     }
+    return NextResponse.json(snippet);
   } catch (error) {
-    console.error("Error fetching snippets:", error);
-    return NextResponse.json({ error: "Error fetching snippets" }, { status: 500 });
+    console.error("Error fetching snippet:", error);
+    return NextResponse.json({ error: "Error fetching snippet" }, { status: 500 });
   }
 }
 

@@ -12,17 +12,15 @@ type Snippet = {
 };
 
 async function getSnippet(id: string): Promise<Snippet | null> {
-  if (!process.env.SITE_URL) {
-    console.error("SITE_URL environment variable is not defined.");
-    return null; // or throw an error
-  }
-
-  const res = await fetch(`${process.env.SITE_URL}/api/snippet/${id}`, {
+  console.log("Fetching snippet with ID:", id);
+  const res = await fetch(`${process.env.SITE_URL}/api/snippet?id=${id}`, {
     cache: "no-store",
   });
 
   if (!res.ok) {
-    console.error(`Failed to fetch snippet with ID ${id}. Status: ${res.status}`);
+    console.error(
+      `Failed to fetch snippet with ID ${id}. Status: ${res.status}`
+    );
     return null;
   }
 
@@ -42,11 +40,20 @@ async function getSnippet(id: string): Promise<Snippet | null> {
     return null;
   }
 }
+/*
+const searchParams = useSearchParams();
+  const jobId = searchParams.get('jobId');
+*/
 
-export default async function SnippetPage({ params }: { params: { id: string } }) {
+export default async function SnippetPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
-  const snippet = await getSnippet(id);
 
+  console.log("ID:", id);
+  const snippet = id ? await getSnippet(id) : null;
   if (!snippet) return notFound();
 
   return <SnippetViewer snippet={snippet} />;
