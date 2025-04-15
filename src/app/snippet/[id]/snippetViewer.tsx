@@ -26,7 +26,6 @@ export default function SnippetViewer({ snippet }: { snippet: Snippet }) {
       setError("Invalid password");
     }
   };
-
   if (snippet.password && !authorized) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0e0e10] text-white px-4">

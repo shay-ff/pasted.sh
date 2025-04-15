@@ -16,7 +16,6 @@ async function getSnippet(id: string): Promise<Snippet | null> {
   const res = await fetch(`${process.env.SITE_URL}/api/snippet?id=${id}`, {
     cache: "no-store",
   });
-
   if (!res.ok) {
     console.error(
       `Failed to fetch snippet with ID ${id}. Status: ${res.status}`
@@ -51,7 +50,6 @@ export default async function SnippetPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
   console.log("ID:", id);
   const snippet = id ? await getSnippet(id) : null;
   if (!snippet) return notFound();

@@ -60,4 +60,29 @@ export async function POST(request: Request) {
   }
 }
 
+export async function DELETE() {
+  try {
+    await connectToDatabase();
 
+    const now = new Date();
+
+    await Snippet.deleteMany({
+      expTime: { $ne: null },
+      $expr: {
+        $lt: [
+          { $add: ["$createdAt", { $multiply: ["$expTime", 1000] }] },
+          now
+        ]
+      }
+    });
+
+    const snippets = await Snippet.find({ password: '' })
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return NextResponse.json({ message: "Cleaned expired snippets", snippets });
+  } catch (error) {
+    console.error("Error cleaning snippets:", error);
+    return NextResponse.json({ error: "Error cleaning snippets" }, { status: 500 });
+  }
+}

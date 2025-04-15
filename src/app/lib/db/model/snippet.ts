@@ -15,6 +15,7 @@ interface ISnippet {
   createdAt?: Date | null;
   expTime?: number | null; // Store as seconds (e.g., 86400 for 24h)
   preferences?: Preferences;
+  showOnAtlas?: boolean;
 }
 
 // Define Mongoose Schema
@@ -28,6 +29,7 @@ const SnippetSchema = new Schema<ISnippet>(
     password: { type: String, required: false },
     expTime: { type: Number, required: false }, 
     preferences: { type: Schema.Types.Mixed },
+    showOnAtlas: { type: Boolean, default: true },
   },
   { timestamps: true } // Auto-add createdAt and updatedAt
 );

@@ -18,7 +18,7 @@ export default function SnippetForm() {
   const [, setSnippet] = useState("");
   const [snippetLink, setSnippetLink] = useState<string>("");
   const [showLinkPopup, setShowLinkPopup] = useState<boolean>(false);
-
+  const [indexable, setIndexable] = useState(true);
   const languageContext = useLanguage();
   const codeContext = useCode();
   const language = languageContext?.language ?? "plaintext";
@@ -61,6 +61,7 @@ export default function SnippetForm() {
           document.querySelector('input[type="checkbox"][label="Encrypt"]') as HTMLInputElement
         )?.checked ?? false,
       },
+      showOnAtlas: indexable,
     };
     setSnippet(JSON.stringify(snippetData));
     // console.log("Snippet Data:", snippetData);
@@ -176,8 +177,13 @@ export default function SnippetForm() {
         </Select>
 
         <div className="flex flex-col pl-1 space-y-1">
-          <Checkbox label="Indexable" className="text-[#c9d1d9]" defaultChecked />
-          <Checkbox label="User Only" className="text-[#c9d1d9]" />
+        <Checkbox
+          label="Indexable"
+          checked={indexable}
+          onChange={(e) => setIndexable(e.target.checked)}
+          className="text-[#c9d1d9]"
+        />
+        
         </div>
 
         <Button
